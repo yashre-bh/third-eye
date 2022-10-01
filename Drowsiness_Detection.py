@@ -7,6 +7,9 @@ import numpy as np
 import mss
 import tkinter as tk
 import time
+import matplotlib.pyplot as plt
+import keyboard
+
 
 def eye_aspect_ratio(eye):
 	A = distance.euclidean(eye[1], eye[5])
@@ -201,5 +204,9 @@ while True:
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
+    if keyboard.is_pressed("ctrl+alt+a"):
+        break
 
-cv2.destroyAllWindows()
+print(penalty,total_time)
+
+#cv2.destroyAllWindows()
