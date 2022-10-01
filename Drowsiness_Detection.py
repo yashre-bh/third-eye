@@ -28,9 +28,11 @@ predict = dlib.shape_predictor("models/shape_predictor_68_face_landmarks.dat")
 flag = 0
 print(1)
 
+monitor = {"top": 0, "left": 0, "width": 1366, "height": 768}
+
 def horizontal_checker ( i ) :
 
-    for j in range ( 450 ) :
+    for j in range ( monitor["width"] ) :
 
         if [ img_short[i][j][0] , img_short[i][j][1] , img_short[i][j][2] , img_short[i][j][3] ] != [ 36 , 33 , 32 , 255 ] :
 
@@ -49,13 +51,15 @@ def vertical_checker ( j , i1 , i2 ) :
     return 1
 
 
-monitor = {"top": 0, "left": 0, "width": 1366, "height": 768}
+
 
 for i in range(20) :
     
     img_np = np.array(mss.mss().grab(monitor))
 
-    img_short = imutils.resize ( img_np , width = 450 )
+    img_short = img_np
+
+    #img_short = imutils.resize ( img_np , width = 450 )
     
     cv2.imshow("OpenCV/Numpy normal", img_short )
 
@@ -88,9 +92,9 @@ for i in range ( len(Vals) - 1 ) :
 
     Vals2 = []
 
-    black_column = [0] * 450
+    black_column = [0] * monitor["width"]
 
-    for j in range ( 450 ) :
+    for j in range ( monitor["width"] ) :
 
         if not vertical_checker ( j , Vals[i] , Vals[i+1] ) :
 
@@ -129,12 +133,12 @@ print("ppp done")
 
 while True:
     img_size= {"top": 0, "left": 0, "width": 1366, "height": 768}
-    img_np_one = np.array(mss.mss().grab(img_size))
+    img_np_full = np.array(mss.mss().grab(img_size))
 
     # ret, frame = cap.read()
     # frame = imutils.resize(frame, width=450);
     
-    img_np_full = imutils.resize(img_np_one, width=450)
+    #img_np_full = imutils.resize(img_np_one, width=450)
 
     
 
@@ -147,6 +151,8 @@ while True:
             img_np = [ img_np_full[iii][Vals22[height_i][position_j] : Vals22[height_i][position_j + 1]+1] for iii in range ( Vals[height_i] , Vals[height_i +1] + 1 ) ]
 
             img_np = np.array(img_np)
+
+            img_np = imutils.resize(img_np, width=450)
             
             gray = cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
             subjects = detect(gray, 0)
