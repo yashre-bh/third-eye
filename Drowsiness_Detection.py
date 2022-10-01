@@ -5,7 +5,7 @@ import dlib
 import cv2
 import numpy as np
 import mss
-
+import tkinter as tk
 
 def eye_aspect_ratio(eye):
 	A = distance.euclidean(eye[1], eye[5])
@@ -29,9 +29,19 @@ print("Model Initialization Complete")
 
 
 
+root = tk.Tk()
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
 
-monitor = {"top": 0, "left": 0, "width": 1366, "height": 768}
+monitor = {"top": 0, "left": 0, "width": screen_width, "height": screen_height}
 
+
+
+for i in range(20) :
+    
+    img_initial_nump = np.array(mss.mss().grab(monitor))
+
+print("Initial Screen Shot Taken")
 
 
 
@@ -57,12 +67,6 @@ def verticalChecker ( j , i1 , i2 ) :
 
 
 
-
-for i in range(20) :
-    
-    img_initial_nump = np.array(mss.mss().grab(monitor))
-
-print("Initial Screen Shot Taken")
 
 horizontal_cuts = []
 
@@ -121,6 +125,7 @@ flag = [0] * no_of_boxes
 
 penalty = [0] * no_of_boxes
 
+total_time = 0
 
 boxes_before_a_row = [0]
 
@@ -133,6 +138,8 @@ print("Preprocessing Done")
 
 
 while True:
+
+    total_time += 1
     
     img_nump = np.array(mss.mss().grab(monitor))
 
@@ -177,11 +184,6 @@ while True:
                         penalty[user_no] +=1
                 else:
                     flag[user_no] = 0
-            
-            if user_no == 2 :
-
-                cv2.imshow("Frame", user_img_nump)
-
                 
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
