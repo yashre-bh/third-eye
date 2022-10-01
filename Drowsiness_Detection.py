@@ -5,10 +5,11 @@ import dlib
 import cv2
 import numpy as np
 import mss
-import tkinter as tk
 import time
 import matplotlib.pyplot as plt
 import keyboard
+from PyQt5 import QtWidgets
+import sys
 
 def eye_aspect_ratio(eye):
 	A = distance.euclidean(eye[1], eye[5])
@@ -31,13 +32,12 @@ predict = dlib.shape_predictor("models/shape_predictor_68_face_landmarks.dat")
 print("Model Initialization Complete")
 
 
+MyApp = QtWidgets.QApplication(sys.argv)
+Screen = MyApp.desktop().screenGeometry()
+monitor_height = Screen.height()
+monitor_width = Screen.width()
 
-root = tk.Tk()
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
-print(screen_width, screen_height)
-
-monitor = {"top": 0, "left": 0, "width": 1920, "height": 1080}
+monitor = {"top": 0, "left": 0, "width": monitor_width, "height": monitor_height}
 
 
 print("Taking Screen Shots in 5 seconds")
@@ -224,6 +224,7 @@ penalty_percent = [ ( total_time - penalty[i] )/total_time for i in range ( len(
 user_nos = [ i+1 for i in range(len(penalty)) ]
 plt.bar( user_nos , penalty_percent )
 plt.savefig('analysis1.png')
+plt.clf()
 plt.plot(negligence)
 plt.savefig('analysis2.png')
 
