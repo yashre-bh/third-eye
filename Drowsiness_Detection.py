@@ -204,9 +204,12 @@ while True:
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
-    if keyboard.is_pressed("ctrl+alt+a"):
+    if keyboard.is_pressed("ctrl+alt+l"):
         break
 
-print(penalty,total_time)
+penalty_percent = [ ( total_time - penalty[i] )/total_time for i in range ( len(penalty) ) ]
+user_nos = [ i+1 for i in range(len(penalty)) ]
+plt.bar( user_nos , penalty_percent )
+plt.show()
 
 #cv2.destroyAllWindows()
