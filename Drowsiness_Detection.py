@@ -10,7 +10,6 @@ import time
 import matplotlib.pyplot as plt
 import keyboard
 
-
 def eye_aspect_ratio(eye):
 	A = distance.euclidean(eye[1], eye[5])
 	B = distance.euclidean(eye[2], eye[4])
@@ -36,8 +35,9 @@ print("Model Initialization Complete")
 root = tk.Tk()
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
+print(screen_width, screen_height)
 
-monitor = {"top": 0, "left": 0, "width": screen_width, "height": screen_height}
+monitor = {"top": 0, "left": 0, "width": 1920, "height": 1080}
 
 
 print("Taking Screen Shots in 5 seconds")
@@ -141,6 +141,8 @@ flag = [0] * no_of_boxes
 
 penalty = [0] * no_of_boxes
 
+negligence = []
+
 total_time = 0
 
 boxes_before_a_row = [0]
@@ -178,6 +180,7 @@ while True:
             if not subjects: 
                 flag[user_no] += 1
                 print(flag)
+                
                 if flag[user_no] >= frame_check:
                     penalty[user_no] +=1
             for subject in subjects:
@@ -200,6 +203,13 @@ while True:
                         penalty[user_no] +=1
                 else:
                     flag[user_no] = 0
+
+    total_negligence_now = 0
+    for i in flag:
+        if i >= frame_check :
+            total_negligence_now += 1 
+    negligence += [ total_negligence_now ]
+
                 
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
@@ -207,9 +217,15 @@ while True:
     if keyboard.is_pressed("ctrl+alt+l"):
         break
 
+print(negligence)
+
+
 penalty_percent = [ ( total_time - penalty[i] )/total_time for i in range ( len(penalty) ) ]
 user_nos = [ i+1 for i in range(len(penalty)) ]
 plt.bar( user_nos , penalty_percent )
-plt.show()
+plt.savefig('analysis1.png')
+plt.plot(negligence)
+plt.savefig('analysis2.png')
+
 
 #cv2.destroyAllWindows()
