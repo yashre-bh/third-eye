@@ -6,6 +6,7 @@ import cv2
 import numpy as np
 import mss
 import tkinter as tk
+import time
 
 def eye_aspect_ratio(eye):
 	A = distance.euclidean(eye[1], eye[5])
@@ -36,13 +37,25 @@ screen_height = root.winfo_screenheight()
 monitor = {"top": 0, "left": 0, "width": screen_width, "height": screen_height}
 
 
+print("Taking Screen Shots in 5 seconds")
 
-for i in range(20) :
+now = time.time()
+
+while 1 :
+
+    right_now = time.time()
+
+    delta_time = right_now - now
+
+    if delta_time > 5 :
+
+        print("Taking Screen shot")
+
+        break
     
-    img_initial_nump = np.array(mss.mss().grab(monitor))
+img_initial_nump = np.array(mss.mss().grab(monitor))
 
 print("Initial Screen Shot Taken")
-
 
 
 def horizontalChecker ( i ) :
@@ -151,7 +164,7 @@ while True:
             
             user_no = boxes_before_a_row[row_no] + column_no
             
-            user_img_nump = [ img_nump[iii][all_vertical_cuts[row_no][column_no] : all_vertical_cuts[row_no][column_no + 1]+1] for iii in range ( horizontal_cuts[row_no] , horizontal_cuts[row_no +1] + 1 ) ]
+            user_img_nump = [ img_nump[iii][all_vertical_cuts[row_no][column_no] : all_vertical_cuts[row_no][column_no + 1]] for iii in range ( horizontal_cuts[row_no] , horizontal_cuts[row_no +1] ) ]
 
             user_img_nump = np.array(user_img_nump)
 
@@ -161,7 +174,7 @@ while True:
             subjects = detect(gray, 0)
             if not subjects: 
                 flag[user_no] += 1
-                #print(flag)
+                print(flag)
                 if flag[user_no] >= frame_check:
                     penalty[user_no] +=1
             for subject in subjects:
@@ -179,7 +192,7 @@ while True:
                 cv2.drawContours(user_img_nump, [rightEyeHull], -1, (0, 255, 0), 1)
                 if ear < thresh:
                     flag[user_no] += 1
-                    #print(flag)
+                    print(flag)
                     if flag[user_no] >= frame_check:
                         penalty[user_no] +=1
                 else:
