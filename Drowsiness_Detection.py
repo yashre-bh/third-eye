@@ -121,6 +121,9 @@ for i in Vals22 :
 
 flag = [0] * boxes
 
+penalty = [0] * boxes
+
+
 boxbefrow = [0]
 
 for i in range( len(boxinrow) - 1 ) :
@@ -160,10 +163,7 @@ while True:
                 flag[boxbefrow[height_i] + position_j] += 1
                 print(flag)
                 if flag[boxbefrow[height_i] + position_j] >= frame_check:
-                    cv2.putText(img_np, "****************ALERT!****************", (10, 30),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-                    cv2.putText(img_np, "****************ALERT!****************", (10, 325),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
+                    penalty[boxbefrow[height_i] + position_j] +=1
             for subject in subjects:
 
                 shape = predict(gray, subject)
@@ -179,15 +179,11 @@ while True:
                 cv2.drawContours(img_np, [rightEyeHull], -1, (0, 255, 0), 1)
                 if ear < thresh:
                     flag[boxbefrow[height_i] + position_j] += 1
-                    print (flag)
+                    print(flag)
                     if flag[boxbefrow[height_i] + position_j] >= frame_check:
-                        cv2.putText(img_np, "****************ALERT!****************", (10, 30),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-                        cv2.putText(img_np, "****************ALERT!****************", (10,325),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-                                        # print ("Drowsy")
-                    else:
-                        flag[boxbefrow[height_i] + position_j] = 0
+                        penalty[boxbefrow[height_i] + position_j] +=1
+                else:
+                    flag[boxbefrow[height_i] + position_j] = 0
             
             if boxbefrow[height_i] + position_j == 2 :
 
