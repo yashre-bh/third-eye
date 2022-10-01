@@ -9,6 +9,7 @@ import tkinter as tk
 import time
 import matplotlib.pyplot as plt
 import keyboard
+import os
 
 def eye_aspect_ratio(eye):
 	A = distance.euclidean(eye[1], eye[5])
@@ -223,8 +224,12 @@ print(negligence)
 penalty_percent = [ ( total_time - penalty[i] )/total_time for i in range ( len(penalty) ) ]
 user_nos = [ i+1 for i in range(len(penalty)) ]
 plt.bar( user_nos , penalty_percent )
+if os.path.isfile('analysis1.png'):
+   os.remove('analysis1.png')
 plt.savefig('analysis1.png')
 plt.plot(negligence)
+if os.path.isfile('analysis2.png'):
+   os.remove('analysis2.png')
 plt.savefig('analysis2.png')
 
 
