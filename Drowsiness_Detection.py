@@ -51,15 +51,20 @@ def vertical_checker ( j , i1 , i2 ) :
 
 monitor = {"top": 0, "left": 0, "width": 1366, "height": 768}
 
-for i in range(100) :
+for i in range(20) :
     
     img_np = np.array(mss.mss().grab(monitor))
 
     img_short = imutils.resize ( img_np , width = 450 )
     
-    #cv2.imshow("OpenCV/Numpy normal", img_short )
+    cv2.imshow("OpenCV/Numpy normal", img_short )
+
+
+print("sss done")
 
 Vals = []
+
+black_row = [0] * len(img_short)
 
 for i in range ( len(img_short) ) :
 
@@ -67,36 +72,15 @@ for i in range ( len(img_short) ) :
 
         continue
 
-    Vals += [ i ]
+    black_row[ i ] = 1
 
-    break
-
-for i in range ( Vals[0] + 20 , len(img_short) ) :
-
-    if not horizontal_checker ( i ) :
+    if black_row[i-1] == 1 :
 
         continue
 
     Vals += [ i ]
 
-    break
-
-if len(Vals) == 2 :
-
-    while 1 :
-
-        a = Vals[-1]
-
-        a += Vals[1] - Vals[0]
-
-        if a < len(img_short) and horizontal_checker ( a ) :
-
-            Vals += [a]
-
-            continue
-
-        break
-
+Vals = Vals[:-1]
 
 Vals22 = []
 
@@ -104,62 +88,53 @@ for i in range ( len(Vals) - 1 ) :
 
     Vals2 = []
 
-    for j in range ( monitor["width"] ) :
+    black_column = [0] * 450
 
-        if vertical_checker ( j , Vals[i] , Vals[i+1] ) :
-
-            continue
-
-        Vals2 += [ j-1 ]
-
-        break
-
-    for j in range ( Vals2[0]+1 , monitor["width"] ) :
+    for j in range ( 450 ) :
 
         if not vertical_checker ( j , Vals[i] , Vals[i+1] ) :
 
             continue
 
+        black_column[ j ] = 1
+
+        if black_column[j-1] == 1 :
+
+            continue
+
         Vals2 += [ j ]
-
-        break
-
-    if len(Vals2) == 2 :
-
-        while 1 :
-
-            a = Vals2[-1]
-
-            a += Vals2[1] - Vals2[0]
-
-            if a < 450 and vertical_checker ( a , Vals[i] , Vals[i+1] ) :
-
-                Vals2 += [a]
-
-                continue
-
-            break
 
     Vals22 += [Vals2]
 
-'''
-WIP
+
 boxes = 0
+boxinrow = []
 for i in Vals22 :
 
     boxes += len(i)-1
 
+    boxinrow += [ len(i) - 1 ]
+
 flag = [0] * boxes
-'''
+
+boxbefrow = [0]
+
+for i in range( len(boxinrow) - 1 ) :
+
+        boxbefrow += [ boxbefrow[-1] + boxinrow[i] ]
+
+
+print("ppp done")
+
 
 while True:
-    img_size= {"top": 40, "left": 0, "width": 800, "height": 640}
-    img_np = np.array(mss.mss().grab(img_size))
+    img_size= {"top": 0, "left": 0, "width": 1366, "height": 768}
+    img_np_one = np.array(mss.mss().grab(img_size))
 
     # ret, frame = cap.read()
     # frame = imutils.resize(frame, width=450);
     
-    img_np_full = imutils.resize(img_np, width=450)
+    img_np_full = imutils.resize(img_np_one, width=450)
 
     
 
@@ -176,9 +151,9 @@ while True:
             gray = cv2.cvtColor(img_np, cv2.COLOR_BGR2GRAY)
             subjects = detect(gray, 0)
             if not subjects: 
-                flag += 1
+                flag[boxbefrow[height_i] + position_j] += 1
                 print(flag)
-                if flag >= frame_check:
+                if flag[boxbefrow[height_i] + position_j] >= frame_check:
                     cv2.putText(img_np, "****************ALERT!****************", (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                     cv2.putText(img_np, "****************ALERT!****************", (10, 325),
@@ -197,18 +172,22 @@ while True:
                 cv2.drawContours(img_np, [leftEyeHull], -1, (0, 255, 0), 1)
                 cv2.drawContours(img_np, [rightEyeHull], -1, (0, 255, 0), 1)
                 if ear < thresh:
-                    flag += 1
+                    flag[boxbefrow[height_i] + position_j] += 1
                     print (flag)
-                    if flag >= frame_check:
+                    if flag[boxbefrow[height_i] + position_j] >= frame_check:
                         cv2.putText(img_np, "****************ALERT!****************", (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                         cv2.putText(img_np, "****************ALERT!****************", (10,325),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
                                         # print ("Drowsy")
                     else:
-                        flag = 0
+                        flag[boxbefrow[height_i] + position_j] = 0
             
-    #cv2.imshow("Frame", img_np)
+            if boxbefrow[height_i] + position_j == 2 :
+
+                cv2.imshow("Frame", img_np)
+
+                
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
