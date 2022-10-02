@@ -9,7 +9,7 @@ def index():
 @app.route('/results')
 def my_link():
   print(os.getcwd())
-  os.system("python3 Drowsiness_Detection.py")
+  os.system("python Drowsiness_Detection.py")
   return render_template('analysis.html')
 
 if __name__ == '__main__':

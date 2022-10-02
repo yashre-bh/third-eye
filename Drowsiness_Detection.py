@@ -226,13 +226,13 @@ penalty_percent = [ ( total_time - penalty[i] )/total_time for i in range ( len(
 user_nos = [ i+1 for i in range(len(penalty)) ]
 plt.bar( user_nos , penalty_percent )
 if os.path.isfile('analysis1.png'):
-   os.remove('static/assets/analysis1.png')
-plt.savefig('static/assets/analysis1.png')
+   os.remove('./static/analysis1.png')
+plt.savefig('./static/analysis1.png')
 plt.clf()
 plt.plot(negligence)
 if os.path.isfile('analysis2.png'):
-   os.remove('static/assets/analysis2.png')
-plt.savefig('static/assets/analysis2.png')
+   os.remove('./static/analysis2.png')
+plt.savefig('./static/analysis2.png')
 
 
 #cv2.destroyAllWindows()
