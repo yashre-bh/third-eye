@@ -1,1 +1,1 @@
-window.open('analysis.html', '_blank');
+window.open("analysis.html", "_blank");
