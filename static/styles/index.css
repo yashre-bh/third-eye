@@ -38,3 +38,13 @@ input {
 .analyze-code{
     padding-left: 5%;
 }
+
+#text-msg {
+	display: flex;
+	padding-top: 10px;
+}
+
+#note {
+	display: flex;
+	padding-top: 10px;
+}

@@ -19,15 +19,17 @@
                         <input type="submit" class="submit" value="Run" onclick="renderTextMsg()"/>
                     </form>
                 </div>
-            </div >
-            <div id="text-msg">
-            </div>
+			</div>
+            <div id="note"></div>
+			<div id="text-msg"></div>
         </div>
     </body>
     <script>
         function renderTextMsg(){
             let textWarning = document.getElementById('text-msg');
-            textWarning.innerHTML = 'Please shift to your Google Meet Web-App screen';
+            textWarning.innerHTML = 'Please shift to your Google Meet Web-App screen.';
+			let note = document.getElementById('note');
+			note.innerHTML = 'Press Ctrl + Alt + L to terminate the "Run" process and see results ';
         }
     </script>
     </html>

@@ -181,7 +181,7 @@ while True:
             subjects = detect(gray, 0)
             if not subjects: 
                 flag[user_no] += 1
-                print(flag)
+                #print(flag)
                 
                 if flag[user_no] >= frame_check:
                     penalty[user_no] +=1
@@ -200,7 +200,7 @@ while True:
                 cv2.drawContours(user_img_nump, [rightEyeHull], -1, (0, 255, 0), 1)
                 if ear < thresh:
                     flag[user_no] += 1
-                    print(flag)
+                    #print(flag)
                     if flag[user_no] >= frame_check:
                         penalty[user_no] +=1
                 else:
@@ -219,7 +219,7 @@ while True:
     if keyboard.is_pressed("ctrl+alt+l"):
         break
 
-print(negligence)
+#print(negligence)
 for i in range ( len(negligence) ) :
     negligence[i] = no_of_boxes - negligence[i]
 
