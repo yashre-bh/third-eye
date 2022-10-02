@@ -1,5 +1,4 @@
 <!doctype html>
-
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -11,18 +10,24 @@
     </head>
     <body>
         <div class="screen">
-        <h1>Third Eye</h1>
-        <h3>Check how boring your lectures are  &#128521</h3>
-        <div class="button">
-        <div class="run-code">
-            <p>Click Run to start the capturing data </p>
-            <form action="/results">
-
-                <input type="submit" class="submit" value="Run" />
-            
-            </form>
+            <h1>Third Eye</h1>
+            <h3>Check how boring your lectures are  &#128521</h3>
+            <div class="button">
+                <div class="run-code">
+                    <p>Click Run to start the capturing data</p>
+                    <form action="/results">
+                        <input type="submit" class="submit" value="Run" onclick="renderTextMsg()"/>
+                    </form>
+                </div>
+            </div >
+            <div id="text-msg">
+            </div>
         </div>
-        </div>
-    </div>
     </body>
+    <script>
+        function renderTextMsg(){
+            let textWarning = document.getElementById('text-msg');
+            textWarning.innerHTML = 'Please shift to your Google Meet Web-App screen';
+        }
+    </script>
     </html>
