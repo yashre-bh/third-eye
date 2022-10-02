@@ -1,12 +1,32 @@
 <!doctype html>
 
-
-<head><title>Test</title> 
-    <meta charset=utf-8> </head>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=,, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/index.css">
+        <title>Analysis</title>
+    </head>
     <body>
-        <h1>My Website</h1>
-        <form action="/my-link/">
-            <input type="submit" value="Click me" />
-        </form>
-        
+        <div class="screen">
+        <h1>Third Eye</h1>
+        <h3>Check how boring your lectures are  &#128521</h3>
+        <div class="button">
+        <div class="run-code">
+            <p>Click Run to start the capturing data </p>
+            <form action="/my-link/">
+
+                <input type="submit" class="submit" value="Run" />
+            
+            </form>
+        </div>
+        <div class="analyze-code">
+            <p>Click Analyze to get analysis of the data </p>
+            <button id="analysis-run" onclick="window.location.href='/Users/prash/Hackathon/final/third-eye/analysis.html'" class="analysis">Analyze</button>
+        </div>
+        </div>
+    </div>
     </body>
+    </html>

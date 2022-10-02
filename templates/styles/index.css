@@ -1,0 +1,40 @@
+body { 
+    background-image: url('../assets/blue.webp');
+}
+input {
+    color: white;
+}
+.submit{
+    background-color: #3018a6; /* Green */
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    width: 39%;
+    border-radius: 10%;
+}
+.analysis{
+    background-color: #3018a6;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    width: 42%;
+    border-radius: 10%;
+    color: white;
+}
+.screen{
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-right: 5%;
+}
+.button{
+    display: flex;
+}
+.analyze-code{
+    padding-left: 5%;
+}

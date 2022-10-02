@@ -31,7 +31,7 @@ predict = dlib.shape_predictor("models/shape_predictor_68_face_landmarks.dat")
 (lStart, lEnd) = face_utils.FACIAL_LANDMARKS_68_IDXS["left_eye"]
 (rStart, rEnd) = face_utils.FACIAL_LANDMARKS_68_IDXS["right_eye"]
 
-print("Model Initialization Complete")
+# print("Model Initialization Complete")
 
 
 MyApp = QtWidgets.QApplication(sys.argv)
@@ -42,7 +42,7 @@ monitor_width = Screen.width()
 monitor = {"top": 0, "left": 0, "width": monitor_width, "height": monitor_height}
 
 
-print("Taking Screen Shots in 5 seconds")
+# print("Taking Screen Shots in 5 seconds")
 
 now = time.time()
 
@@ -54,13 +54,13 @@ while 1 :
 
     if delta_time > 5 :
 
-        print("Taking Screen shot")
+        # print("Taking Screen shot")
 
         break
     
 img_initial_nump = np.array(mss.mss().grab(monitor))
 
-print("Initial Screen Shot Taken")
+# print("Initial Screen Shot Taken")
 
 
 def horizontalChecker ( i ) :
@@ -154,7 +154,7 @@ for i in range( len(boxes_in_a_row) - 1 ) :
         boxes_before_a_row += [ boxes_before_a_row[-1] + boxes_in_a_row[i] ]
 
 
-print("Preprocessing Done")
+# print("Preprocessing Done")
 
 
 while True:
@@ -181,7 +181,7 @@ while True:
             subjects = detect(gray, 0)
             if not subjects: 
                 flag[user_no] += 1
-                print(flag)
+                #print(flag)
                 
                 if flag[user_no] >= frame_check:
                     penalty[user_no] +=1
@@ -200,7 +200,7 @@ while True:
                 cv2.drawContours(user_img_nump, [rightEyeHull], -1, (0, 255, 0), 1)
                 if ear < thresh:
                     flag[user_no] += 1
-                    print(flag)
+                    #print(flag)
                     if flag[user_no] >= frame_check:
                         penalty[user_no] +=1
                 else:
@@ -219,7 +219,7 @@ while True:
     if keyboard.is_pressed("ctrl+alt+l"):
         break
 
-print(negligence)
+#print(negligence)
 
 
 penalty_percent = [ ( total_time - penalty[i] )/total_time for i in range ( len(penalty) ) ]
@@ -231,8 +231,8 @@ plt.savefig('analysis1.png')
 plt.clf()
 plt.plot(negligence)
 if os.path.isfile('analysis2.png'):
-   os.remove('analysis2.png')
-plt.savefig('analysis2.png')
+   os.remove('templates/assets/analysis2.png')
+plt.savefig('templates/assets/analysis2.png')
 
 
 #cv2.destroyAllWindows()
