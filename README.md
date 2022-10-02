@@ -32,7 +32,7 @@ You fill land on the main page where you can start the Analysis
 Run:
    On clicking the button, the Model which calculates the attentiveness and the negligience of all participants will start.
    Head towards your Google Meet Tab, and continue the meet.
-   When you are about to stop the meeting, just press "<kbd>^</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>" to stop the script from running. The page will redirect to show the results!
+   When you are about to stop the meeting, just press "<kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd>" to stop the script from running. The page will redirect to show the results!
 
 
 ## Contributors
