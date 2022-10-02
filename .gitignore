@@ -1,3 +1,7 @@
+# Images of graphs
+./static/analysis1.png
+./static/analysis2.png
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -41,6 +45,7 @@ $RECYCLE.BIN/
 
 # Directories potentially created on remote AFP share
 .AppleDB
+
 .AppleDesktop
 Network Trash Folder
 Temporary Items
